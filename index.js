@@ -22,8 +22,9 @@ client.on('messageCreate', (message) => {
     // Ignore bot messages
     if (message.author.bot) return;
 
-    // Only process /calc commands
-    if (!message.content.startsWith('/calc')) return;
+    // Use prefixes to have the option to choose '/' or '!'
+    const prefixes = ['/calc', '!calc'];
+    if (!prefixes.some(prefix => message.content.startsWith(prefix))) return;
 
      // Extract math expression after !calc
     const expression = message.content.slice(5).trim();
