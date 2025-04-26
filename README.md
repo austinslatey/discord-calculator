@@ -2,7 +2,9 @@
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
-This is a simple discord calculator bot that preforms simple math and returns the solution back to it's user
+This is a simple discord calculator bot that preforms math equations and returns the solution back to it's user
+
+Connect this bot to your Discord server [here](https://discord.com/oauth2/authorize?client_id=1365359291716079838&permissions=3072&integration_type=0&scope=bot)
 
 ## Table of Contents 
 * [Features](#features)
@@ -20,8 +22,8 @@ This is a simple discord calculator bot that preforms simple math and returns th
 * [Questions](#questions)
 
 ## Features
-- `Basic Calculation`:
-Help: !calc help (shows the help menu)
+- `Basic Calculation`: Solves addition, subtraction, multiplication, and division. (e.g., 2 + 3 = 5 or 2 - 4 = -2).
+
 - `Equation Solving`: Solves algebraic equations (e.g., 2x + 3 = 7 or x^2 - 4 = 0).
 
 - `Derivatives`: Computes derivatives of functions (e.g., cos(x) → -sin(x)).
@@ -42,11 +44,15 @@ To install necessary dependencies, run the following command:
 npm i
 ```
 
+To run the program run the following command (assuming you have nodeJs installed):
+
+`node index.js`
+
 ## Usage
 
 - Basic Calculation: `!calc 5 * sin(3)` or `!calc basic 2 + 2`
 
-- Solve Equation: `!calc solve 2x + 3 = 7`(returns x = 2)
+- Solve Equation: `!calc solve 2x + 3 = 7` (returns x = 2)
 
 - Derivative: `!calc derive x^2` (returns 2x)
 
@@ -68,6 +74,15 @@ This project is licensed under the MIT license.
 
 ## Tests
 ...
+
+## Notes
+- May not handle all edge cases, thorough testing needed
+
+- For matrix operations, users must input matrices in valid mathjs format (e.g., [[1,2],[3,4]]).
+
+- Unit conversions require valid mathjs units (e.g., km, miles, cm, inches).
+
+
 
 ## Questions
 
