@@ -2,7 +2,6 @@
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
 ## Description
-
 This is a simple discord calculator bot that preforms simple math and returns the solution back to it's user
 
 ## Table of Contents 
@@ -35,8 +34,6 @@ Help: !calc help (shows the help menu)
 
 - `Help`: !calc help (shows the help menu)
 
-
-
 ## Installation
 
 To install necessary dependencies, run the following command:
@@ -60,11 +57,6 @@ npm i
 - Unit Conversion: `!calc convert 10 km to miles` (returns 6.21371 miles)
 
 - Help: `!calc help` (shows the help menu)
-
-
-
-
-
 
 ## License
 
