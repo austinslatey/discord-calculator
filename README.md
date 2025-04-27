@@ -39,7 +39,7 @@ Connect this bot to your Discord server [here](https://discord.com/oauth2/author
 - `Help`: !calc help (shows the help menu)
 
 ## Screenshots
-![Application](./application.png)
+![Application](./assets/imgs/application.png)
 
 ## Installation
 
