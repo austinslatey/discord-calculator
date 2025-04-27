@@ -1,6 +1,9 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits } = require('discord.js');
 const math = require('mathjs');
+const nerdamer = require('nerdamer');
+require('nerdamer/Algebra');
+require('nerdamer/Solve');
 
 // Create a new client instance with necessary intents
 const client = new Client({
@@ -62,8 +65,17 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
         else if (command === 'solve') {
             const equation = args.join(' ');
             if (!equation) return message.reply('Please provide an equation, e.g., `x^2 - 4 = 0`.');
-            const solutions = math.solve(equation, 'x'); // Assumes solving for 'x'
-            message.reply(`Solutions: ${solutions.join(', ')}`);
+            if (!equation.includes('=')) return message.reply('Equation must contain `=` (e.g., `x^2 - 4 = 0`).');
+            let solutions = nerdamer.solve(equation, 'x');
+            // Handle different output types
+            if (!Array.isArray(solutions)) {
+                solutions = [solutions]; // Convert single solution to array
+            }
+            const formattedSolutions = solutions.map(s => nerdamer(s).toString());
+            if (formattedSolutions.length === 0) {
+                return message.reply('No solutions found.');
+            }
+            message.reply(`Solutions: ${formattedSolutions.join(', ')}`);
         }
         else if (command === 'derive') {
             const expression = args.join(' ');
@@ -74,7 +86,7 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
         else if (command === 'integrate') {
             const expression = args.join(' ');
             if (!expression) return message.reply('Please provide an expression, e.g., `x^2`.');
-            const integral = math.integrate(expression, 'x').toString();
+            const integral = nerdamer.integrate(expression, 'x').toString();
             message.reply(`Indefinite Integral: ${integral} + C`);
         }
         else if (command === 'matrix') {
