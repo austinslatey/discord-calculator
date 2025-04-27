@@ -87,13 +87,11 @@ describe('MathBot Commands', () => {
     // Convert Command
     describe('convert', () => {
         test('converts 10 km to miles', () => {
-            expect(commands.convert(10, 'km', 'miles')).toMatch(/6.21371/); // Approximate value
+            expect(commands.convert(10, 'km', 'miles')).toMatch(/6.21371.*miles/);
         });
-
         test('converts 100 cm to inches', () => {
-            expect(commands.convert(100, 'cm', 'inches')).toMatch(/39.37008/); // Approximate value
+            expect(commands.convert(100, 'cm', 'inches')).toMatch(/39.37007.*inches/);
         });
-
         test('throws error for invalid input', () => {
             expect(() => commands.convert(NaN, 'km', 'miles')).toThrow('Please provide a valid conversion');
         });
