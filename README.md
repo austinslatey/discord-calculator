@@ -78,7 +78,12 @@ This project is licensed under the MIT license.
 
 
 ## Tests
-...
+This repository uses the `Jest` library to run a series of tests 
+
+To run the tests input this command in your bash terminal
+```
+npm test
+```
 
 ## Notes
 - May not handle all edge cases, thorough testing needed
