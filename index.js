@@ -1,9 +1,6 @@
 require('dotenv').config();
 const { Client, GatewayIntentBits } = require('discord.js');
-const math = require('mathjs');
-const nerdamer = require('nerdamer');
-require('nerdamer/Algebra');
-require('nerdamer/Solve');
+const commands = require('./commands');
 
 // Create a new client instance with necessary intents
 const client = new Client({
@@ -58,80 +55,51 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
     try {
         if (command === 'basic') {
             const expression = args.join(' ');
-            if (!expression) return message.reply('Please provide a math expression, e.g., `2+2`.');
-            const result = math.evaluate(expression);
+            const result = commands.basic(expression);
             message.reply(`Result: ${result}`);
         }
         else if (command === 'solve') {
             const equation = args.join(' ');
-            if (!equation) return message.reply('Please provide an equation, e.g., `x^2 - 4 = 0`.');
-            if (!equation.includes('=')) return message.reply('Equation must contain `=` (e.g., `x^2 - 4 = 0`).');
-            let solutions = nerdamer.solve(equation, 'x');
-            console.log('Raw solutions:', solutions);
-            // Extract solutions from nerdamer object
-            let solutionArray = [];
-            if (solutions.symbol && solutions.symbol.elements) {
-                solutionArray = solutions.symbol.elements.map(s => nerdamer(s).evaluate().toString());
-            } else {
-                solutionArray = [nerdamer(solutions).evaluate().toString()];
-            }
-            console.log('Formatted solutions:', solutionArray);
-            if (solutionArray.length === 0) {
-                return message.reply('No solutions found.');
-            }
-            // Clean up any residual brackets or array notation
-            const cleanSolutions = solutionArray.map(s => s.replace(/[\[\]]/g, ''));
-            const output = cleanSolutions.join(', ');
-            message.reply(`Solutions: ${output}`);
+            const result = commands.solve(equation);
+            message.reply(`Solutions: ${result}`);
         }
         else if (command === 'derive') {
             const expression = args.join(' ');
-            if (!expression) return message.reply('Please provide an expression, e.g., `x^2`.');
-            const derivative = math.derivative(expression, 'x').toString();
-            message.reply(`Derivative: ${derivative}`);
+            const result = commands.derive(expression);
+            message.reply(`Derivative: ${result}`);
         }
         else if (command === 'integrate') {
             const expression = args.join(' ');
-            if (!expression) return message.reply('Please provide an expression, e.g., `x^2`.');
-            const integral = nerdamer.integrate(expression, 'x').toString();
-            message.reply(`Indefinite Integral: ${integral} + C`);
+            const result = commands.integrate(expression);
+            message.reply(`Indefinite Integral: ${result} + C`);
         }
         else if (command === 'matrix') {
             const operation = args[0].toLowerCase();
             const matrixStr = args.slice(1).join(' ');
-            if (!operation || !matrixStr) return message.reply('Please provide an operation and matrix, e.g., `det [[1,2],[3,4]]`.');
-            let result;
-            const matrix = math.evaluate(matrixStr);
+            const result = commands.matrix(operation, matrixStr);
             if (operation === 'det') {
-                result = math.det(matrix);
                 message.reply(`Determinant: ${result}`);
             } else if (operation === 'inv') {
-                result = math.inv(matrix);
-                message.reply(`Inverse: ${JSON.stringify(result)}`);
-            } else {
-                message.reply('Supported matrix operations: `det`, `inv`.');
+                message.reply(`Inverse: ${result}`);
             }
         }
         else if (command === 'convert') {
             const value = parseFloat(args[0]);
             const fromUnit = args[1];
             const toUnit = args[3];
-            if (isNaN(value) || !fromUnit || !toUnit) {
-                return message.reply('Please provide a valid conversion, e.g., `10 km to miles`.');
-            }
-            const result = math.unit(value, fromUnit).to(toUnit).toString();
+            const result = commands.convert(value, fromUnit, toUnit);
             message.reply(`Result: ${result}`);
         }
         else {
             // Default to basic evaluation if no specific command
             const expression = message.content.slice(prefixUsed.length).trim();
             if (!expression) return message.reply('Please provide a math expression, e.g., `2+2`.');
-            const result = math.evaluate(expression);
+            const result = commands.basic(expression);
             message.reply(`Result: ${result}`);
         }
     } catch (error) {
         console.error(error);
-        message.reply('Error: Invalid input or operation. Use `!calc help` for guidance.');
+        message.reply(`Error: ${error.message || 'Invalid input or operation. Use `!calc help` for guidance.'}`);
     }
 });
 

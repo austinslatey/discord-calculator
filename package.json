@@ -14,5 +14,8 @@
     "dotenv": "^16.5.0",
     "mathjs": "^14.4.0",
     "nerdamer": "^1.1.13"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
