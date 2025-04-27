@@ -39,7 +39,9 @@ module.exports = {
         if (operation === 'det') {
             return math.det(matrix);
         } else if (operation === 'inv') {
-            return JSON.stringify(math.inv(matrix));
+            // Convert matrix to plain array and format as string
+            const invMatrix = math.inv(matrix);
+            return JSON.stringify(math.matrix(invMatrix).toArray());
         } else {
             throw new Error('Supported matrix operations: `det`, `inv`.');
         }
