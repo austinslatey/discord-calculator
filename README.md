@@ -6,7 +6,9 @@ This is a simple discord calculator bot that preforms math equations and returns
 
 Connect this bot to your Discord server [here](https://discord.com/oauth2/authorize?client_id=1365359291716079838&permissions=3072&integration_type=0&scope=bot)
 
-## Table of Contents 
+## Table of Contents
+* [Screenshots](#screenshots)
+
 * [Features](#features)
 
 * [Installation](#installation)
@@ -36,6 +38,9 @@ Connect this bot to your Discord server [here](https://discord.com/oauth2/author
 
 - `Help`: !calc help (shows the help menu)
 
+## Screenshots
+![Application](./application.png)
+
 ## Installation
 
 To install necessary dependencies, run the following command:
@@ -52,11 +57,11 @@ To run the program run the following command (assuming you have nodeJs installed
 
 - Basic Calculation: `!calc 5 * sin(3)` or `!calc basic 2 + 2`
 
-- Solve Equation: `!calc solve 2x + 3 = 7` (returns x = 2)
+- Solve Equation: `!calc solve 2x + 3 = 7` (returns x = 2) (not functioning)
 
 - Derivative: `!calc derive x^2` (returns 2x)
 
-- Integral: `!calc integrate x^2` (returns x^3/3 + C)
+- Integral: `!calc integrate x^2` (returns x^3/3 + C) (not functioning)
 
 - Matrix Determinant: `!calc matrix det [[1,2],[3,4]]` (returns -2)
 
