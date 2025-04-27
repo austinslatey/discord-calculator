@@ -67,15 +67,22 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
             if (!equation) return message.reply('Please provide an equation, e.g., `x^2 - 4 = 0`.');
             if (!equation.includes('=')) return message.reply('Equation must contain `=` (e.g., `x^2 - 4 = 0`).');
             let solutions = nerdamer.solve(equation, 'x');
-            // Handle different output types
-            if (!Array.isArray(solutions)) {
-                solutions = [solutions]; // Convert single solution to array
+            console.log('Raw solutions:', solutions);
+            // Extract solutions from nerdamer object
+            let solutionArray = [];
+            if (solutions.symbol && solutions.symbol.elements) {
+                solutionArray = solutions.symbol.elements.map(s => nerdamer(s).evaluate().toString());
+            } else {
+                solutionArray = [nerdamer(solutions).evaluate().toString()];
             }
-            const formattedSolutions = solutions.map(s => nerdamer(s).toString());
-            if (formattedSolutions.length === 0) {
+            console.log('Formatted solutions:', solutionArray);
+            if (solutionArray.length === 0) {
                 return message.reply('No solutions found.');
             }
-            message.reply(`Solutions: ${formattedSolutions.join(', ')}`);
+            // Clean up any residual brackets or array notation
+            const cleanSolutions = solutionArray.map(s => s.replace(/[\[\]]/g, ''));
+            const output = cleanSolutions.join(', ');
+            message.reply(`Solutions: ${output}`);
         }
         else if (command === 'derive') {
             const expression = args.join(' ');
