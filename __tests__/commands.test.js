@@ -96,4 +96,21 @@ describe('MathBot Commands', () => {
             expect(() => commands.convert(NaN, 'km', 'miles')).toThrow('Please provide a valid conversion');
         });
     });
+    describe('percent', () => {
+        test('increases 100 by 20%', () => {
+            expect(commands.percent('increase', 100, 20)).toBe(120);
+        });
+        test('decreases 100 by 20%', () => {
+            expect(commands.percent('decrease', 100, 20)).toBe(80);
+        });
+        test('throws error for invalid operation', () => {
+            expect(() => commands.percent('invalid', 100, 20)).toThrow('Operation must be `increase` or `decrease`');
+        });
+        test('throws error for invalid value', () => {
+            expect(() => commands.percent('increase', NaN, 20)).toThrow('Please provide a valid operation');
+        });
+        test('throws error for invalid percentage', () => {
+            expect(() => commands.percent('increase', 100, NaN)).toThrow('Please provide a valid operation');
+        });
+    });
 });
