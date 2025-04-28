@@ -113,4 +113,22 @@ describe('MathBot Commands', () => {
             expect(() => commands.percent('increase', 100, NaN)).toThrow('Please provide a valid operation');
         });
     });
+
+    describe('percentChange', () => {
+        test('calculates 80% decrease from 100 to 20', () => {
+            expect(commands.percentChange(100, 20)).toBe(-80);
+        });
+        test('calculates 20% increase from 100 to 120', () => {
+            expect(commands.percentChange(100, 120)).toBe(20);
+        });
+        test('throws error for invalid old value', () => {
+            expect(() => commands.percentChange(NaN, 20)).toThrow('Please provide two valid numbers');
+        });
+        test('throws error for invalid new value', () => {
+            expect(() => commands.percentChange(100, NaN)).toThrow('Please provide two valid numbers');
+        });
+        test('throws error for zero old value', () => {
+            expect(() => commands.percentChange(0, 20)).toThrow('Old value cannot be zero');
+        });
+    });
 });
