@@ -92,6 +92,13 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
             const result = commands.convert(value, fromUnit, toUnit);
             message.reply(`Result: ${result}`);
         }
+        else if (command === 'percent') {
+            const operation = args[0].toLowerCase();
+            const value = parseFloat(args[1]);
+            const percentage = parseFloat(args[3]);
+            const result = commands.percent(operation, value, percentage);
+            message.reply(`Result: ${result}`);
+        }
         else {
             // Default to basic evaluation if no specific command
             const expression = message.content.slice(prefixUsed.length).trim();
