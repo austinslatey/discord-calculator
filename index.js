@@ -41,6 +41,7 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
 - **matrix <operation> <matrix>**: Matrix operations (e.g., \`${prefixUsed} matrix det [[1,2],[3,4]]\`)
 - **convert <value> <from> to <to>**: Unit conversion (e.g., \`${prefixUsed} convert 10 km to miles\`)
 - **percent <operation> <value> by <percentage>**: Calculate percentage increase or decrease (e.g., \`${prefixUsed} percent increase 100 by 20\`)
+- **percentChange <oldValue> <newValue>**: Calculate percentage change between two numbers (e.g., \`${prefixUsed} percentChange 100 20\`)
 - **help**: Show this help message
 
 **Examples:**
@@ -49,6 +50,7 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
 - \`${prefixUsed} derive cos(x)\`
 - \`${prefixUsed} convert 100 cm to inches\`
 - \`${prefixUsed} percent decrease 100 by 20\`
+- \`${prefixUsed} percentChange 100 120\`
         `;
         return message.reply(helpMessage);
     }
@@ -98,6 +100,13 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
             const percentage = parseFloat(args[3]);
             const result = commands.percent(operation, value, percentage);
             message.reply(`Result: ${result}`);
+        }
+        else if (command === 'percentChange') {
+            const oldValue = parseFloat(args[0]);
+            const newValue = parseFloat(args[1]);
+            const change = commands.percentChange(oldValue, newValue);
+            const direction = change >= 0 ? 'increase' : 'decrease';
+            message.reply(`Result: ${Math.abs(change)}% ${direction}`);
         }
         else {
             // Default to basic evaluation if no specific command
