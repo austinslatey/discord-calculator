@@ -40,6 +40,7 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
 - **integrate <expression>**: Compute the indefinite integral (e.g., \`${prefixUsed} integrate x^2\`)
 - **matrix <operation> <matrix>**: Matrix operations (e.g., \`${prefixUsed} matrix det [[1,2],[3,4]]\`)
 - **convert <value> <from> to <to>**: Unit conversion (e.g., \`${prefixUsed} convert 10 km to miles\`)
+- **percent <operation> <value> by <percentage>**: Calculate percentage increase or decrease (e.g., \`${prefixUsed} percent increase 100 by 20\`)
 - **help**: Show this help message
 
 **Examples:**
@@ -47,6 +48,7 @@ Use \`${prefixUsed} <command> <expression>\` to perform calculations.
 - \`${prefixUsed} solve 2x + 3 = 7\`
 - \`${prefixUsed} derive cos(x)\`
 - \`${prefixUsed} convert 100 cm to inches\`
+- \`${prefixUsed} percent decrease 100 by 20\`
         `;
         return message.reply(helpMessage);
     }
