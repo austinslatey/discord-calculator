@@ -39,7 +39,6 @@ module.exports = {
         if (operation === 'det') {
             return math.det(matrix);
         } else if (operation === 'inv') {
-            // Convert matrix to plain array and format as string
             const invMatrix = math.inv(matrix);
             return JSON.stringify(math.matrix(invMatrix).toArray());
         } else {
@@ -53,6 +52,7 @@ module.exports = {
         }
         return math.unit(value, fromUnit).to(toUnit).toString();
     },
+
     percent: (operation, value, percentage) => {
         if (!operation || isNaN(value) || isNaN(percentage)) {
             throw new Error('Please provide a valid operation (increase/decrease), value, and percentage, e.g., `increase 100 by 20`.');
@@ -65,6 +65,7 @@ module.exports = {
             throw new Error('Operation must be `increase` or `decrease`.');
         }
     },
+
     percentChange: (oldValue, newValue) => {
         if (isNaN(oldValue) || isNaN(newValue)) {
             throw new Error('Please provide two valid numbers, e.g., `100 20`.');
@@ -75,4 +76,12 @@ module.exports = {
         const change = ((newValue - oldValue) / oldValue) * 100;
         return Number(change.toFixed(2)); // Round to 2 decimal places
     },
+
+    matrixSolve: (matrixA, vectorB) => {
+        if (!matrixA || !vectorB) throw new Error('Please provide a matrix and vector, e.g., `[[2,1],[1,-1]] | [5,1]`.');
+        const A = math.evaluate(matrixA);
+        const b = math.evaluate(vectorB);
+        const solutions = math.lsolve(A, b);
+        return solutions.map(x => Number(x.toFixed(6))).join(', ');
+    }
 };
