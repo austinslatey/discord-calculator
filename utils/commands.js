@@ -52,5 +52,17 @@ module.exports = {
             throw new Error('Please provide a valid conversion, e.g., `10 km to miles`.');
         }
         return math.unit(value, fromUnit).to(toUnit).toString();
+    },
+    percent: (operation, value, percentage) => {
+        if (!operation || isNaN(value) || isNaN(percentage)) {
+            throw new Error('Please provide a valid operation (increase/decrease), value, and percentage, e.g., `increase 100 by 20`.');
+        }
+        if (operation.toLowerCase() === 'increase') {
+            return value * (1 + percentage / 100);
+        } else if (operation.toLowerCase() === 'decrease') {
+            return value * (1 - percentage / 100);
+        } else {
+            throw new Error('Operation must be `increase` or `decrease`.');
+        }
     }
 };
