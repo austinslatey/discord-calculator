@@ -64,5 +64,15 @@ module.exports = {
         } else {
             throw new Error('Operation must be `increase` or `decrease`.');
         }
-    }
+    },
+    percentChange: (oldValue, newValue) => {
+        if (isNaN(oldValue) || isNaN(newValue)) {
+            throw new Error('Please provide two valid numbers, e.g., `100 20`.');
+        }
+        if (oldValue === 0) {
+            throw new Error('Old value cannot be zero for percentage change calculation.');
+        }
+        const change = ((newValue - oldValue) / oldValue) * 100;
+        return Number(change.toFixed(2)); // Round to 2 decimal places
+    },
 };
